@@ -10,6 +10,7 @@ namespace API_JWT.Profiles
         {
             CreateMap<User, UserDTO>().ReverseMap();
             CreateMap<User, CreateUserDTO>().ReverseMap();
+            CreateMap<UserDTO, CreateUserDTO>().ReverseMap();
         }
     }
 }

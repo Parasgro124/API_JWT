@@ -2,6 +2,7 @@ using API_JWT.Data;
 using API_JWT.Model;
 using API_JWT.Model.DTO;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace API_JWT.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    
     public class UserController : ControllerBase
     {
         private readonly ILogger<UserController> _logger;
@@ -26,6 +28,8 @@ namespace API_JWT.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        
         public async Task<IActionResult> Get()
         {
             try
@@ -47,6 +51,7 @@ namespace API_JWT.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        
         public async Task<IActionResult> GetById(int id)
         {
             try
@@ -102,6 +107,7 @@ namespace API_JWT.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize]
         public async Task<IActionResult> UpdateUserById(int id, [FromBody] CreateUserDTO updatedUser)
         {
             try
@@ -136,6 +142,7 @@ namespace API_JWT.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [Authorize]
         public async Task<IActionResult> Delete([FromBody] int id)
         {
             try
